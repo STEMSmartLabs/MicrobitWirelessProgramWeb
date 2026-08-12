@@ -1,4 +1,4 @@
-const CACHE='microbit-programmer-v21';
+const CACHE='microbit-programmer-v22';
 const ASSETS=['./','./index.html','./style.css','./app.js','./manifest.webmanifest','./assets/stem-smart-labs-logo.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
