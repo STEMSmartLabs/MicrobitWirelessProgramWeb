@@ -12,7 +12,7 @@ const ERRORS = {1:'Micro:bit is not mounted',2:'Programmer is busy',3:'Invalid c
 
 const $ = id => document.getElementById(id);
 const ui = {
-  connect:$('connect'),disconnect:$('disconnect'),details:$('details'),program:$('program'),
+  connect:$('connect'),disconnect:$('disconnect'),program:$('program'),
   file:$('file'),drop:$('drop'),fileMeta:$('fileMeta'),fileState:$('fileState'),
   progressPanel:$('progress'),meter:$('meter'),percent:$('percent'),phaseLabel:$('phaseLabel'),
   progressLabel:$('progressLabel'),progressBytes:$('progressBytes'),progressTiming:$('progressTiming'),
@@ -129,7 +129,7 @@ async function connect() {
     controlCharacteristic=await service.getCharacteristic(UUID.control);
     await controlCharacteristic.startNotifications();
     controlCharacteristic.addEventListener('characteristicvaluechanged',onNotification);
-    connected=true; ui.bleText.textContent='Connected'; setDot(ui.bleDot,'ok'); ui.connect.hidden=true; ui.disconnect.hidden=false; ui.details.hidden=false;
+    connected=true; ui.bleText.textContent='Connected'; setDot(ui.bleDot,'ok'); ui.connect.hidden=true; ui.disconnect.hidden=false;
     log('Connected to Programmer.');
     await controlCharacteristic.writeValueWithResponse(Uint8Array.of(0x01));
     await sleep(100);
@@ -142,7 +142,7 @@ function disconnected() {
   cancelAckWait(new Error('Bluetooth disconnected'));
   connected=mounted=flashing=false; dataCharacteristic=controlCharacteristic=null;
   ui.versions.textContent=`Build · Web v${CLIENT_VERSION} · Programmer not connected`;
-  ui.bleText.textContent='Disconnected';ui.usbText.textContent='Unknown';setDot(ui.bleDot);setDot(ui.usbDot);setFlash('Idle');ui.connect.hidden=false;ui.disconnect.hidden=true;ui.details.hidden=true;updateProgramButton();
+  ui.bleText.textContent='Disconnected';ui.usbText.textContent='Unknown';setDot(ui.bleDot);setDot(ui.usbDot);setFlash('Idle');ui.connect.hidden=false;ui.disconnect.hidden=true;updateProgramButton();
 }
 
 async function selectFile(file) {
@@ -226,7 +226,6 @@ async function program() {
 
 ui.connect.addEventListener('click',connect);
 ui.disconnect.addEventListener('click',()=>device?.gatt?.disconnect());
-ui.details.addEventListener('click',()=>controlCharacteristic?.writeValueWithResponse(Uint8Array.of(0x05)).catch(error=>log(error.message)));
 ui.program.addEventListener('click',program);
 ui.file.addEventListener('change',event=>selectFile(event.target.files[0]));
 for(const name of ['dragenter','dragover']) ui.drop.addEventListener(name,event=>{event.preventDefault();ui.drop.classList.add('over');});
