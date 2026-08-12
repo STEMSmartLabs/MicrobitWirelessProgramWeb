@@ -1,6 +1,6 @@
 'use strict';
 
-const CLIENT_VERSION='2.5.0-unique-id-led';
+const CLIENT_VERSION='2.5.0';
 
 const UUID = {
   service: '12345678-1234-5678-1234-56789abcdef0',
@@ -141,7 +141,7 @@ function disconnected() {
   cancelWait(new Error('Bluetooth disconnected'));
   cancelAckWait(new Error('Bluetooth disconnected'));
   connected=mounted=flashing=false; dataCharacteristic=controlCharacteristic=null;
-  ui.versions.textContent=`Build · Web v${CLIENT_VERSION} · Programmer not connected`;
+  ui.versions.textContent=`Build · Web v${CLIENT_VERSION}`;
   ui.bleText.textContent='Disconnected';ui.usbText.textContent='Unknown';setDot(ui.bleDot);setDot(ui.usbDot);setFlash('Idle');ui.connect.hidden=false;ui.disconnect.hidden=true;updateProgramButton();
 }
 
