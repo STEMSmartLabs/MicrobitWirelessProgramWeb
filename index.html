@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#882c84">
+  <meta name="description" content="Program a BBC micro:bit wirelessly with the STEM Smart Labs Programmer.">
+  <title>STEM Smart Labs · micro:bit Wireless Programmer</title>
+  <link rel="icon" type="image/png" href="assets/stem-smart-labs-logo.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-orb orb-one"></div><div class="background-orb orb-two"></div>
+  <main class="app-shell">
+    <header class="brand-header">
+      <img class="brand-logo" src="assets/stem-smart-labs-logo.png" alt="STEM Smart Labs">
+      <div class="brand-copy">
+        <p class="eyebrow">Wireless micro:bit programming</p>
+        <h1>micro:bit Wireless Programmer</h1>
+        <p>Choose a HEX file, connect the Programmer, and program your micro:bit wirelessly.</p>
+      </div>
+    </header>
+
+    <section class="panel file-panel">
+      <div class="section-heading"><div><span class="step">1</span><h2>Choose a micro:bit HEX</h2></div><strong id="fileState">Not selected</strong></div>
+      <label id="drop" class="drop-zone">
+        <input id="file" type="file" accept=".hex">
+        <span class="upload-icon">⇧</span><strong>Select or drop a .hex file here</strong>
+        <small id="fileMeta">Intel HEX or Universal HEX · maximum 4 MB</small>
+      </label>
+    </section>
+
+    <section class="panel control-panel">
+      <div class="section-heading"><div><span class="step">2</span><h2>Connect and program</h2></div></div>
+      <div class="actions">
+        <button id="connect" class="primary">Connect Programmer</button>
+        <button id="program" class="accent" disabled>Program micro:bit</button>
+        <button id="disconnect" class="secondary" hidden>Disconnect</button>
+        <button id="details" class="secondary" hidden>Read micro:bit details</button>
+      </div>
+      <div class="state-grid" aria-label="Programmer status">
+        <div><span>Bluetooth</span><strong id="bleText">Disconnected</strong><i id="bleDot"></i></div>
+        <div><span>micro:bit USB</span><strong id="usbText">Unknown</strong><i id="usbDot"></i></div>
+        <div><span>Programming</span><strong id="flashText">Idle</strong><i id="flashDot"></i></div>
+      </div>
+    </section>
+
+    <section class="panel progress-panel" id="progress" aria-live="polite">
+      <div class="progress-row"><strong id="percent">0%</strong><span id="phaseLabel">Waiting to start · 0 of 2 completed</span></div>
+      <progress id="meter" max="100" value="0"></progress>
+      <p id="progressLabel">Choose a HEX file and connect the Programmer.</p>
+      <div class="progress-meta"><span id="progressBytes">0 B / 0 B</span><span id="progressTiming">Ready</span></div>
+    </section>
+
+    <details class="panel log-panel" id="activity">
+      <summary>Activity and diagnostics</summary>
+      <div class="log-tools"><button id="copyLog" class="text-button">Copy log</button><button id="clear" class="text-button">Clear</button></div>
+      <pre id="log" aria-live="polite"></pre>
+    </details>
+
+    <footer><span>Copyright © 2026 STEM Smart Labs</span><span id="versions" class="versions">Build · Web v2.5.0-unique-id-led · Programmer not connected</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
